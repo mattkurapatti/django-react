@@ -1,12 +1,16 @@
 from django.shortcuts import render
-from .models import Movie
-from .serializers import MovieSerializer
-from rest_framework import generics
+from .models import Movie, Keyword
+from .serializers import MovieSerializer, KeywordSerializer
+from rest_framework import generics, viewsets, serializers
 
 import urllib.request, json
 
 
 # Create your views here.
+
+class KeywordList(serializers.ModelSerializer):
+    queryset = Keyword.objects.all()
+    serializer_class = KeywordSerializer
 
 class MovieList(generics.ListCreateAPIView):
     serializer_class = MovieSerializer
@@ -43,6 +47,8 @@ class MovieList(generics.ListCreateAPIView):
 
         queryset = queryset[:5]
         for movie in queryset:
+            for keyword in movie.keywords.all():
+                print(keyword.word)
             try:
                 key = "nLuRdJU7ilmshomzNmLM800CKr4jp1NnF9pjsnz4Jvx28fyBHA"
                 search = movie.title + ' movie poster'

@@ -15,4 +15,4 @@ class Movie(models.Model):
 class Keyword(models.Model):
     word = models.CharField(max_length=50)
     # keyword_id = models.BigIntegerField(default=-1)
-    movies = models.ManyToManyField(Movie)
+    movies = models.ManyToManyField(Movie, related_name='keywords')

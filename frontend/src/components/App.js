@@ -108,7 +108,7 @@ class App extends Component {
                   onChange={this.handleKeywordChange}
               />
               <input
-                  placeholder="Search by Vote Average..."
+                  placeholder="Enter Minimum Vote Average..."
                   name="rating"
                   value={this.state.rating}
                   onChange={this.handleRatingChange}
@@ -120,10 +120,10 @@ class App extends Component {
           {this.state.data.map(movie => {
             console.log(movie.title)
             console.log(movie.mov_url)
-            console.log(movie.keyword_list)
+            console.log(movie)
             const arr = [movie.title, <br />, "Match Reason: ", movie.match_reason, <br />,
               "Tagline: ", movie.tagline, <br />, "Overview: ", movie.overview, <br />,
-              "Vote Average: ", movie.vote_average, <br />, "Keywords: ", movie.keywords_list]
+              "Vote Average: ", movie.vote_average, <br />, "Keywords: "]
             return (
               <div key={movie.id}>
                 <>
@@ -134,7 +134,14 @@ class App extends Component {
                     less={"Hide Movie Details"}
                     expanded={false}
                   >
-                    <p> {arr} </p>
+                    <p>
+                      {arr}
+                      {movie.keywords.map((keyword, i) => (
+                      <li key={i}>
+                        {keyword}
+                      </li>
+                      ))}
+                    </p>
                   </ShowMoreText>
                 </>
               </div>
