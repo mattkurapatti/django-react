@@ -1,12 +1,9 @@
 from rest_framework import serializers
 from .models import Movie, Keyword
 
+# we set use RelatedField so that we can pass keywords as a list
 class KeywordSerializer(serializers.RelatedField):
-    # movies = serializers.PrimaryKeyRelatedField(queryset=Movie.objects.all(), many=True)
-    # movies = serializers.ListField(source="word")
-
-    # def to_representation(self, value):
-    #     return value.word
+    # specify that the "value" to be displayed for our Keyword is the value field
     def to_representation(self, value):
         return value.word
 
@@ -15,6 +12,7 @@ class KeywordSerializer(serializers.RelatedField):
         fields = ('id', 'word', 'movies')
 
 class MovieSerializer(serializers.ModelSerializer):
+    # many=True specifies many-to-many relationship
     keywords = KeywordSerializer(many=True, read_only=True)
 
     class Meta:

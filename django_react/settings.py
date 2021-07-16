@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # we had our Movie app, rest framework, and front end apps below
     'movies.apps.MoviesConfig',
     'rest_framework',
     'frontend'

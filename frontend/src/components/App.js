@@ -3,8 +3,6 @@ import { render } from "react-dom";
 import { Button } from 'reactstrap';
 import ShowMoreText from 'react-show-more-text';
 
-// import {useImage} from 'react-image'
-// import { useTable } from 'react-table';
 
 class App extends Component {
   constructor(props) {
@@ -23,10 +21,13 @@ class App extends Component {
     this.handleRatingChange = this.handleRatingChange.bind(this);
   }
 
+  // Invoked when component is mounted
+  // Good place to create network requests, so we put our fetch call here
   componentDidMount() {
     const title = encodeURIComponent(this.state.title)
     const keyword = encodeURIComponent(this.state.keyword)
     const rating = encodeURIComponent(this.state.rating)
+    // fetch with our title, keyword, and rating filters
     fetch("api/movie?title="+title+"&keyword="+keyword+"&rating="+rating)
       .then(response => {
         if (response.status > 400) {
@@ -38,6 +39,8 @@ class App extends Component {
       })
       .then(data => {
         this.setState(() => {
+          // Upon successful fetch call, data is updated
+          // and set loaded to true in our state
           return {
             data,
             loaded: true
@@ -46,6 +49,7 @@ class App extends Component {
       });
   }
 
+  // helper method which updates data by fetching
   handleChange = () => {
     const title = encodeURIComponent(this.state.title), keyword = encodeURIComponent(this.state.keyword),
         rating = encodeURIComponent(this.state.rating);
@@ -68,25 +72,21 @@ class App extends Component {
       });
   }
 
+  // updates title as it is typed
   handleTitleChange(event) {
     this.setState({
       title : event.target.value,
-      loaded : false,
-      data : []
     }, () => {});
   }
+  // updates keyword as it is typed
   handleKeywordChange(event) {
     this.setState({
       keyword : event.target.value,
-      loaded : false,
-      data : []
     }, () => {});
   }
   handleRatingChange(event) {
     this.setState({
       rating : event.target.value,
-      loaded : false,
-      data : []
     }, () => {});
   }
 
@@ -118,8 +118,6 @@ class App extends Component {
           </>
         <div>
           {this.state.data.map(movie => {
-            console.log(movie.title)
-            console.log(movie.mov_url)
             console.log(movie)
             const arr = [movie.title, <br />, "Match Reason: ", movie.match_reason, <br />,
               "Tagline: ", movie.tagline, <br />, "Overview: ", movie.overview, <br />,
@@ -136,8 +134,8 @@ class App extends Component {
                   >
                     <p>
                       {arr}
-                      {movie.keywords.map((keyword, i) => (
-                      <li key={i}>
+                      {movie.keywords.map(keyword => (
+                      <li key={keyword}>
                         {keyword}
                       </li>
                       ))}

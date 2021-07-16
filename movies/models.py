@@ -14,5 +14,6 @@ class Movie(models.Model):
 
 class Keyword(models.Model):
     word = models.CharField(max_length=50)
-    # keyword_id = models.BigIntegerField(default=-1)
+    # Many to Many field describes relationship where Model A can have relationships
+    # with multiple of Model B and Model B can have relationships with multiple of Model A
     movies = models.ManyToManyField(Movie, related_name='keywords')
