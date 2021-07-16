@@ -39,7 +39,7 @@ manage.py shell < movies\scripts\movies_metadata_to_mysql.py
 ```bash
 manage.py shell < movies\scripts\keywords_to_mysql.py
 ```
-Note: the 2nd script may take 30-45 minutes. Additionally, be sure to use the excel files in the github as I had to pre-process some of the data (the JSON in the original dataset wasn't valid).
+Note: the 2nd script may take 30-45 minutes. Additionally, be sure to use the excel files in the github as I had to pre-process some of the data (the JSON in the original dataset wasn't valid)
 
 Run the server:
 ```bash
